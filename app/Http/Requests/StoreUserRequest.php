@@ -9,7 +9,7 @@ class StoreUserRequest extends FormRequest
 
     #==========================  HOW TO CREATE =================
     #php artisan make:request StoreUserRequest
-    
+
     /**
      * Determine if the user is authorized to make this request.
      *
