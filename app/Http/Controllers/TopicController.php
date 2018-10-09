@@ -6,21 +6,25 @@ use App\Topic;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreTopicRequest;
 use App\Transformers\TopicTransformer;
+use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 
 class TopicController extends Controller
 {
     public function index()
     {
         #-------- listar los ultimos topics
-        $topics = Topic::latestFirst()->get();
+        $topics = Topic::latestFirst()->paginate(3);
+        #-------- $topicsCollection, extrae la coleccion de topics
+        $topicsCollection = $topics->getCollection();
 
         return fractal()
             #------ listar la coleccion de topics
-            ->collection($topics)
+            ->collection($topicsCollection)
             #------ solo nec. el topic yel user
             ->parseIncludes(['user'])
             #------ transformar con el TopicTransformer
             ->transformWith(new TopicTransformer)
+            ->paginateWith(new IlluminatePaginatorAdapter($topics))
             #------ y lo devolvemos como un array
             ->toArray();
     }
