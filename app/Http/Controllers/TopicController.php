@@ -5,6 +5,7 @@ use App\Post;
 use App\Topic;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreTopicRequest;
+use App\Transformers\TopicTransformer;
 
 class TopicController extends Controller
 {
@@ -29,6 +30,12 @@ class TopicController extends Controller
         #====== guardar el post a ese topic
         $topic->posts()->save($post);
 
-        
+        return fractal()
+            ->item($topic)
+            ->parseIncludes(['user'])
+            ->transformWith(new TopicTransformer)
+            ->toArray();
+
+
     }
 }
