@@ -32,7 +32,7 @@ class TopicController extends Controller
 
         return fractal()
             ->item($topic)
-            ->parseIncludes(['user'])
+            ->parseIncludes(['user', 'posts'])
             ->transformWith(new TopicTransformer)
             ->toArray();
 
