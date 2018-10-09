@@ -23,6 +23,10 @@ Route::post('/register', 'RegisterController@register');
 
 Route::group(['prefix' => 'topics'], function () {
 
+    #======== topic index: cualquiera pueve ver
+    Route::get('/', 'TopicController@index');
+
+    #======== topic store: protegido
     Route::post('/', 'TopicController@store')->middleware('auth:api');
 
 

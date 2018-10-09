@@ -9,6 +9,23 @@ use App\Transformers\TopicTransformer;
 
 class TopicController extends Controller
 {
+    public function index()
+    {
+        #-------- listar los ultimos topics
+        $topics = Topic::latestFirst()->get();
+
+        return fractal()
+            #------ listar la coleccion de topics
+            ->collection($topics)
+            #------ solo nec. el topic yel user
+            ->parseIncludes(['user'])
+            #------ transformar con el TopicTransformer
+            ->transformWith(new TopicTransformer)
+            #------ y lo devolvemos como un array
+            ->toArray();
+    }
+
+
     public function store(StoreTopicRequest $request)
     {
         #====== Crear nueva instancia
