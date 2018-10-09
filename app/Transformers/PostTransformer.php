@@ -5,6 +5,7 @@ use App\Post;
 
 class PostTransformer extends \League\Fractal\TransformerAbstract
 {
+    protected $availableIncludes = ['user'];
 
     public function transform(Post $post)
     {
@@ -15,5 +16,12 @@ class PostTransformer extends \League\Fractal\TransformerAbstract
             'created_at_human' => $post->created_at->diffForHumans(),
         ];
     }
+
+    public function includeUser(Post $post)
+    {
+        #-- return this item from the post we extrac that user, thought userTransformer
+        return $this->item($post->user, new UserTransformer);
+    }
+
 
 }
