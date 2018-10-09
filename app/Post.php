@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\Orderable;
 
 class Post extends Model
 {
+    use Orderable;
+    
     protected $fillable = [
         'body',
     ];

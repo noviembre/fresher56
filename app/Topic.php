@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\Orderable;
 
 class Topic extends Model
 {
+    use Orderable;
+
     protected $fillable = [
         'title',
     ];
@@ -17,6 +20,6 @@ class Topic extends Model
 
     public function posts()
     {
-        return $this->hasMany(Post::class);
+        return $this->hasMany(Post::class)->oldestFirst();
     }
 }
