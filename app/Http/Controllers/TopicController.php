@@ -86,4 +86,10 @@ class TopicController extends Controller
             ->toArray();
 
     }
+
+    public function destroy(Topic $topic)
+    {
+        $this->authorize('destroy', $topic);
+       
+    }
 }

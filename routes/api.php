@@ -35,5 +35,8 @@ Route::group(['prefix' => 'topics'], function () {
     #======== topic update, patch is just for udpate
     Route::patch('/{topic}', 'TopicController@update')->middleware('auth:api');
 
+    #======== Topic destroy
+    Route::delete('/{topic}', 'TopicController@destroy')->middleware('auth:api');
+
 
 });
