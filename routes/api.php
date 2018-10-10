@@ -32,5 +32,8 @@ Route::group(['prefix' => 'topics'], function () {
     #======== topic show
     Route::get('/{topic}', 'TopicController@show');
 
+    #======== topic update
+    Route::patch('/{topic}', 'TopicController@update')->middleware('auth:api');
+
 
 });
