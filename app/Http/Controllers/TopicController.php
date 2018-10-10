@@ -90,6 +90,8 @@ class TopicController extends Controller
     public function destroy(Topic $topic)
     {
         $this->authorize('destroy', $topic);
-       
+        $topic->delete();
+        #------ 204 = request succesful but theres no conten
+        return response(null, 204);
     }
 }
