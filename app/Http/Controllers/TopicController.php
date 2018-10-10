@@ -62,6 +62,10 @@ class TopicController extends Controller
 
     public function show(Topic $topic)
     {
-        dd($topic);
+        return fractal()
+            ->item($topic)
+            ->parseIncludes(['user', 'posts', 'posts.user'])
+            ->transformWith(new TopicTransformer)
+            ->toArray();
     }
 }
