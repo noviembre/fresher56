@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Post;
 use App\Topic;
 use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Http\Request;
 use App\Transformers\PostTransformer;
 
@@ -27,4 +28,16 @@ class PostController extends Controller
             ->transformWith(new PostTransformer)
             ->toArray();
     }
+
+    #------ we receive the post.
+    #------ no vamos a usar el topic pero... como el post esta dentro del grupo del topic....
+    #------ entocnes si lo incluimos
+    public function update(UpdatePostRequest $request, Topic $topic, Post $post)
+    {
+
+        $post->body = $request->get('body', $post->body);
+        $post->save();
+
+    }
+
 }
