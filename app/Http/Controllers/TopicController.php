@@ -5,6 +5,7 @@ use App\Post;
 use App\Topic;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreTopicRequest;
+use App\Http\Requests\UpdateTopicRequest;
 use App\Transformers\TopicTransformer;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 
@@ -67,5 +68,15 @@ class TopicController extends Controller
             ->parseIncludes(['user', 'posts', 'posts.user'])
             ->transformWith(new TopicTransformer)
             ->toArray();
+    }
+
+    public function update(UpdateTopicRequest $request, Topic $topic)
+    {
+        #----- el title de la db = el title,
+        #----- pero si no hay ninguna dato en el request->title (o se envia en blanco)
+        #----- entonces el nuevo titulo no sera nulo sino sera el titulo que estaba en la db hasta antes del udpate
+        $topic->title = $request->get('title', $topic->title);
+        $topic->save();
+
     }
 }

@@ -32,7 +32,7 @@ Route::group(['prefix' => 'topics'], function () {
     #======== topic show
     Route::get('/{topic}', 'TopicController@show');
 
-    #======== topic update
+    #======== topic update, patch is just for udpate
     Route::patch('/{topic}', 'TopicController@update')->middleware('auth:api');
 
 
