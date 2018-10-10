@@ -29,5 +29,8 @@ Route::group(['prefix' => 'topics'], function () {
     #======== topic store: protegido
     Route::post('/', 'TopicController@store')->middleware('auth:api');
 
+    #======== topic show
+    Route::get('/{topic}', 'TopicController@show');
+
 
 });
