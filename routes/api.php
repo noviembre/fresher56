@@ -39,4 +39,12 @@ Route::group(['prefix' => 'topics'], function () {
     Route::delete('/{topic}', 'TopicController@destroy')->middleware('auth:api');
 
 
+    Route::group(['prefix' => '/{topic}/posts'], function () {
+
+        Route::post('/', 'PostController@store')->middleware('auth:api');
+
+
+    });
+
+
 });
