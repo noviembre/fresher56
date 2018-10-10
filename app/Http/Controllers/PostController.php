@@ -47,4 +47,11 @@ class PostController extends Controller
             ->toArray();
     }
 
+    public function destroy(Topic $topic, Post $post)
+    {
+        $this->authorize('destroy', $post);
+        $post->delete();
+        return response(null, 204);
+    }
+
 }

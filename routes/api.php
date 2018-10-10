@@ -41,10 +41,13 @@ Route::group(['prefix' => 'topics'], function () {
 
     Route::group(['prefix' => '/{topic}/posts'], function () {
 
-        #============   Post Store      ============
+        #============   Post/Reply Store      ============
         Route::post('/', 'PostController@store')->middleware('auth:api');
-        #============   Post Update     ============
+        #============   Post/Reply Update     ============
         Route::patch('/{post}', 'PostController@update')->middleware('auth:api');
+
+        #============   Post/Reply Destroy     ============
+        Route::delete('/{post}', 'PostController@destroy')->middleware('auth:api');
 
 
     });
