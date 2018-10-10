@@ -72,11 +72,18 @@ class TopicController extends Controller
 
     public function update(UpdateTopicRequest $request, Topic $topic)
     {
+        $this->authorize('update', $topic);
         #----- el title de la db = el title,
         #----- pero si no hay ninguna dato en el request->title (o se envia en blanco)
         #----- entonces el nuevo titulo no sera nulo sino sera el titulo que estaba en la db hasta antes del udpate
         $topic->title = $request->get('title', $topic->title);
         $topic->save();
+
+        return fractal()
+            ->item($topic)
+            ->parseIncludes(['user'])
+            ->transformWith(new TopicTransformer)
+            ->toArray();
 
     }
 }

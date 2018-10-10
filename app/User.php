@@ -31,4 +31,9 @@ class User extends Authenticatable
     {
         return 'https://www.gravatar.com/avatar/' . md5($this->email) . '?s=45&d=mm';
     }
+
+    public function ownsTopic(Topic $topic)
+    {
+        return $this->id === $topic->user->id;
+    }
 }
