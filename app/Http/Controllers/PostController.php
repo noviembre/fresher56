@@ -34,10 +34,17 @@ class PostController extends Controller
     #------ entocnes si lo incluimos
     public function update(UpdatePostRequest $request, Topic $topic, Post $post)
     {
+        #-- policie: I authorize the update from the post
+        $this->authorize('update', $post);
 
         $post->body = $request->get('body', $post->body);
         $post->save();
 
+        return fractal()
+            ->item($post)
+            ->parseIncludes(['user'])
+            ->transformWith(new PostTransformer)
+            ->toArray();
     }
 
 }
