@@ -50,6 +50,11 @@ Route::group(['prefix' => 'topics'], function () {
         Route::delete('/{post}', 'PostController@destroy')->middleware('auth:api');
 
 
+        Route::group(['prefix' => '/{post}/likes'], function () {
+            Route::post('/', 'PostLikeController@store')->middleware('auth:api');
+        });
+
+
     });
 
 
