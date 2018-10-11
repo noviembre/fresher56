@@ -25,4 +25,10 @@ class PostPolicy
     {
         return $user->ownsPost($post);
     }
+
+    public function like(User $user, Post $post)
+    {
+        #-- si el user no es el propietario del post
+        return !$user->ownsPost($post);
+    }
 }

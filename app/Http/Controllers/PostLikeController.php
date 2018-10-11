@@ -10,6 +10,7 @@ class PostLikeController extends Controller
 {
     public function store(Request $request, Topic $topic, Post $post)
     {
+        $this->authorize('like', $post);
 
         $like = new Like;
         $like->user()->associate($request->user());
