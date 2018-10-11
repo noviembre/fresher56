@@ -12,6 +12,11 @@ class PostLikeController extends Controller
     {
         $this->authorize('like', $post);
 
+        if ($request->user()->hasLikedPost($post)) {
+            #-- 409 = conflict, something is in there and we cant insert it
+            return response(null, 409);
+        }
+
         $like = new Like;
         $like->user()->associate($request->user());
 
